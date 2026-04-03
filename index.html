@@ -28,7 +28,8 @@ header img{height:50px}
 /* PEOPLE */
 .people{display:flex;gap:25px;justify-content:center;flex-wrap:wrap;margin-top:20px}
 .person{text-align:center}
-.person img{width:100px;height:100px;border-radius:50%;object-fit:cover;border:4px solid white}
+.person img{width:100px;height:100px;border-radius:50%;object-fit:cover;border:4px solid white;transition:.3s}
+.person:hover img{transform:scale(1.08)}
 .person p{margin-top:8px;font-size:.9rem}
 
 /* SERVICES */
@@ -85,14 +86,14 @@ footer{text-align:center;padding:20px;font-size:.8rem}
   </div>
 </section><section class="section">
   <h2>Our Achievements</h2>
-  <div class="stats">
+  <div class="stats" id="stats">
     <div class="stat"><h2>800+</h2><p>Students</p></div>
     <div class="stat"><h2>70+</h2><p>Teachers</p></div>
     <div class="stat"><h2>36+</h2><p>Years</p></div>
   </div>
 </section><section class="section">
   <h2>Well-Known People From Our School</h2>
-  <div class="people">
+  <div class="people" style="align-items:flex-start">
     <div class="person">
       <img src="principal.jpg">
       <p>Ajaz Ahmad Dar<br><small>Principal</small></p>
@@ -128,6 +129,79 @@ footer{text-align:center;padding:20px;font-size:.8rem}
 </section><div class="lightbox" id="lightbox">
   <span class="close" onclick="closeImg()">&times;</span>
   <img id="lightImg">
+</div></section><section class="section">
+  <h2>Our Toppers</h2>  <div class="people"><!-- 1st Rank (Gold) -->
+<div style="border:3px solid gold;padding:15px;border-radius:20px">
+  <h3>🥇 1st Rank (494 Marks)</h3>
+  <div style="display:flex;gap:15px;flex-wrap:wrap;justify-content:center">
+
+    <div class="person" onclick="showTopper('Aieda Manzoor','494 Marks')">
+      <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png">
+      <p>Aieda Manzoor</p>
+    </div>
+
+    <div class="person" onclick="showTopper('Aiman Farooq','494 Marks')">
+      <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png">
+      <p>Aiman Farooq</p>
+    </div>
+
+    <div class="person" onclick="showTopper('Saima Aslam','494 Marks')">
+      <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png">
+      <p>Saima Aslam</p>
+    </div>
+
+    <div class="person" onclick="showTopper('Mehak','494 Marks')">
+      <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png">
+      <p>Mehak</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- 2nd Rank (Silver) -->
+<div style="border:3px solid silver;padding:15px;border-radius:20px;margin-top:20px">
+  <h3>🥈 2nd Rank (492 Marks)</h3>
+  <div style="display:flex;gap:15px;flex-wrap:wrap;justify-content:center">
+
+    <div class="person" onclick="showTopper('Sahil Lone','492 Marks')">
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+      <p>Sahil Lone</p>
+    </div>
+
+    <div class="person" onclick="showTopper('Seerat Jan','492 Marks')">
+      <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png">
+      <p>Seerat Jan</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- 3rd Rank (Bronze) -->
+<div style="border:3px solid #cd7f32;padding:15px;border-radius:20px;margin-top:20px">
+  <h3>🥉 3rd Rank</h3>
+  <div style="display:flex;gap:15px;flex-wrap:wrap;justify-content:center">
+
+    <div class="person" onclick="showTopper('Fozia Altaf','490 Marks')">
+      <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png">
+      <p>Fozia Altaf (490)</p>
+    </div>
+
+    <div class="person" onclick="showTopper('Toiba','487 Marks')">
+      <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png">
+      <p>Toiba (487)</p>
+    </div>
+
+  </div>
+</div>
+
+  </div>
+</section><!-- TOPPER POPUP --><div class="lightbox" id="topperBox">
+  <span class="close" onclick="closeTopper()">&times;</span>
+  <div style="background:white;color:black;padding:25px;border-radius:15px;text-align:center;max-width:300px">
+    <h3 id="topperName"></h3>
+    <p id="topperMarks"></p>
+    <p style="margin-top:10px">A proud achiever from our 10th batch, demonstrating excellence and dedication.</p>
+  </div>
 </div><section class="section" id="contact">
   <div class="contact">
     <h2>Contact Us</h2>
@@ -166,5 +240,39 @@ function toggle(el){let p=el.querySelector('p');p.style.display=p.style.display=
 function openImg(src){document.getElementById('lightbox').style.display='flex';document.getElementById('lightImg').src=src}
 function closeImg(){document.getElementById('lightbox').style.display='none'}
 window.onclick=function(e){if(e.target.id==='formModal'){e.target.style.display='none'}}
+function showTopper(name,marks){
+ document.getElementById('topperBox').style.display='flex';
+ document.getElementById('topperName').innerText=name;
+ document.getElementById('topperMarks').innerText=marks;
+}
+function closeTopper(){document.getElementById('topperBox').style.display='none'}
+// animated counters
+let counted=false;
+window.addEventListener('scroll',()=>{
+ const stats=document.getElementById('stats');
+ if(!counted && stats.getBoundingClientRect().top<window.innerHeight){
+  counted=true;
+  document.querySelectorAll('.stat h2').forEach(el=>{
+    let target=parseInt(el.innerText);
+    let count=0;
+    let step=target/50;
+    let interval=setInterval(()=>{
+      count+=step;
+      if(count>=target){el.innerText=target+'+';clearInterval(interval)}
+      else el.innerText=Math.floor(count)+'+';
+    },20);
+  });
+ }
+});
+
+// better topper descriptions
+function showTopper(name,marks){
+ document.getElementById('topperBox').style.display='flex';
+ document.getElementById('topperName').innerText=name;
+ document.getElementById('topperMarks').innerText=marks;
+ document.querySelector('#topperBox p:last-child').innerText=
+ name+" is a top-performing student from our 10th batch, known for dedication, consistency, and academic excellence.";
+}
+function closeTopper(){document.getElementById('topperBox').style.display='none'}
 </script></body>
 </html>
