@@ -1,102 +1,130 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Teacher Review System</title>
-
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<title>Teacher Reviews</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body{font-family:Poppins;background:#0f3d1f;color:#fff;padding:20px}
-.container{max-width:900px;margin:auto}
-.card{background:#fff;color:#000;padding:15px;border-radius:15px;margin:10px 0;cursor:pointer}
-.review{background:#eee;color:#000;padding:10px;border-radius:10px;margin-top:10px}
-.blur{filter:blur(6px)}
-.star{cursor:pointer;font-size:24px}
-.admin{background:#fff;color:#000;padding:15px;border-radius:15px;margin-top:20px}
-button{padding:8px 12px;border:none;border-radius:8px;cursor:pointer}
-textarea,input{width:100%;padding:10px;margin:5px 0;border-radius:8px;border:none}
+body{
+  font-family:Poppins,sans-serif;
+  background:#0f3d1f;
+  color:white;
+  padding:20px;
+}
+
+h1{text-align:center}
+
+.top-bar{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+
+button{
+  padding:10px 15px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.card{
+  background:white;
+  color:black;
+  padding:15px;
+  border-radius:15px;
+  margin:10px 0;
+}
+
+input,textarea{
+  width:100%;
+  padding:10px;
+  margin:5px 0;
+  border-radius:10px;
+  border:none;
+}
+
+.stars span{
+  font-size:25px;
+  cursor:pointer;
+}
 </style>
 </head>
 
 <body>
 
-<div class="container">
-
-<h2>Teacher Rating System</h2>
-
-<button onclick="openAdmin()">Admin Panel</button>
+<div class="top-bar">
+  <h1>Teacher Reviews</h1>
+  <button onclick="openAdmin()">Admin Panel</button>
+</div>
 
 <div id="teacherList"></div>
 
-<div id="formBox" style="display:none;">
-<h3 id="teacherTitle"></h3>
+<hr>
 
-<input id="name" placeholder="Enter Your Name">
-<input id="class" placeholder="Enter Your Class">
-<input id="section" placeholder="Enter Your Section">
+<h2>Submit Review</h2>
+
+<input id="name" placeholder="Your Name">
+<input id="class" placeholder="Class">
+<input id="section" placeholder="Section">
 
 <label><input type="checkbox" id="anon"> Be Anonymous</label>
 
-<div id="stars"></div>
+<div class="stars" id="stars"></div>
 
 <textarea id="reason" placeholder="Enter reason"></textarea>
 
 <button onclick="submitReview()">Submit</button>
-</div>
 
+<hr>
+
+<h2>Reviews</h2>
 <div id="reviews"></div>
 
-<!-- ADMIN -->
-<div id="adminPanel" class="admin" style="display:none;">
-<input type="password" id="adminPass" placeholder="Enter Password">
-<button onclick="checkAdmin()">Enter</button>
-
-<div id="adminContent" style="display:none;"></div>
-</div>
-
-</div>
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <script>
-// 🔥 FIREBASE CONFIG
 const firebaseConfig = {
-  apiKey: "AIzaSyCub1n6Mpm4T2G6jpM65MEvzUuxt55pJ5I",
-  authDomain: "evergreen-high-school.firebaseapp.com",
-  projectId: "evergreen-high-school"
+  apiKey: "YOUR_KEY",
+  authDomain: "YOUR_DOMAIN",
+  databaseURL: "YOUR_DB_URL",
+  projectId: "YOUR_ID"
 };
 
 firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+const db = firebase.database();
 
+let selectedRating = 0;
 let selectedTeacher = "";
-let rating = 0;
 
-// ⭐ STAR SYSTEM
-const starBox = document.getElementById("stars");
+// ⭐ Stars
+const starDiv = document.getElementById("stars");
 for(let i=1;i<=5;i++){
-  let s=document.createElement("span");
-  s.innerHTML="⭐";
-  s.className="star";
-  s.onclick=()=>{rating=i;highlightStars(i)};
-  starBox.appendChild(s);
+  let span=document.createElement("span");
+  span.innerHTML="★";
+  span.onclick=()=>{selectedRating=i; highlightStars()};
+  starDiv.appendChild(span);
 }
-function highlightStars(n){
-  document.querySelectorAll(".star").forEach((el,i)=>{
-    el.style.opacity = i<n ? "1" : "0.3";
+
+function highlightStars(){
+  [...starDiv.children].forEach((s,i)=>{
+    s.style.color = i<selectedRating ? "gold" : "gray";
   });
 }
 
-// 📄 LOAD TEACHERS
+// 📄 Load teachers.txt
 fetch("teachers.txt")
 .then(res=>res.text())
 .then(data=>{
-  const list = document.getElementById("teacherList");
+  let teachers=data.split("\n");
+  let list=document.getElementById("teacherList");
 
-  data.split("\n").forEach(line=>{
-    if(!line.trim()) return;
+  teachers.forEach(t=>{
+    if(!t.trim()) return;
 
-    let [name,gender]=line.split(":");
+    let [name,gender]=t.split(":");
 
     let div=document.createElement("div");
     div.className="card";
@@ -104,124 +132,75 @@ fetch("teachers.txt")
 
     div.onclick=()=>{
       selectedTeacher=name;
-      document.getElementById("formBox").style.display="block";
-      document.getElementById("teacherTitle").innerText=name;
-      loadReviews(name);
-    };
+      loadReviews();
+    }
 
     list.appendChild(div);
   });
 });
 
-// 📤 SUBMIT REVIEW
+// 📤 Submit
 function submitReview(){
-  const name = document.getElementById("name").value;
-  const cls = document.getElementById("class").value;
-  const sec = document.getElementById("section").value;
-  const anon = document.getElementById("anon").checked;
-  const reason = document.getElementById("reason").value;
+  if(!selectedTeacher) return alert("Select teacher first");
+  if(selectedRating===0) return alert("Give rating");
 
-  if(!rating || !reason){
-    alert("Rating & reason required");
-    return;
-  }
+  const anon=document.getElementById("anon").checked;
 
-  db.collection("reviews").add({
+  let data={
     teacher:selectedTeacher,
-    name,
-    class:cls,
-    section:sec,
-    anon,
-    rating,
-    reason,
+    name: anon ? "Anonymous" : document.getElementById("name").value,
+    class: anon ? "Hidden" : document.getElementById("class").value,
+    section: anon ? "Hidden" : document.getElementById("section").value,
+    rating:selectedRating,
+    reason:document.getElementById("reason").value,
     time:Date.now()
-  });
+  };
 
+  db.ref("reviews").push(data);
   alert("Submitted");
 }
 
-// 🔄 LOAD REVIEWS (USER)
-function loadReviews(teacher){
-  const box = document.getElementById("reviews");
+// 🔄 Load reviews realtime
+function loadReviews(){
+  const container=document.getElementById("reviews");
 
-  db.collection("reviews")
-  .where("teacher","==",teacher)
-  .orderBy("time","desc")
-  .onSnapshot(snapshot=>{
-    box.innerHTML="";
+  db.ref("reviews").on("value",snap=>{
+    container.innerHTML="";
 
-    snapshot.forEach(doc=>{
-      const d = doc.data();
+    snap.forEach(child=>{
+      let d=child.val();
 
-      let info = d.anon
-        ? `<span class="blur">${d.name} (${d.class}-${d.section})</span>`
-        : `${d.name} (${d.class}-${d.section})`;
+      if(d.teacher!==selectedTeacher) return;
 
       let div=document.createElement("div");
-      div.className="review";
+      div.className="card";
 
       div.innerHTML=`
-        <b>${info}</b><br>
-        ⭐ ${d.rating}/5<br>
-        ${d.reason}
+      <b>${d.name}</b> (${d.class}-${d.section})<br>
+      ⭐ ${d.rating}/5 <br>
+      ${d.reason}
       `;
 
-      box.appendChild(div);
+      container.appendChild(div);
     });
   });
 }
 
-// 🔐 ADMIN PANEL
+// 🔐 Admin
 function openAdmin(){
-  document.getElementById("adminPanel").style.display="block";
-}
+  let pass=prompt("Enter Password");
 
-function checkAdmin(){
-  const pass = document.getElementById("adminPass").value;
+  if(pass!=="2x8js92ns9210nnkal92") return alert("Wrong");
 
-  db.collection("admin").doc("config").get().then(doc=>{
-    if(pass === doc.data().password){
-      document.getElementById("adminContent").style.display="block";
-      loadAllReviews();
-    } else {
-      alert("Wrong password");
-    }
-  });
-}
-
-// 🔥 ADMIN VIEW
-function loadAllReviews(){
-  const box = document.getElementById("adminContent");
-
-  db.collection("reviews")
-  .orderBy("time","desc")
-  .onSnapshot(snapshot=>{
-    box.innerHTML="";
-
-    snapshot.forEach(doc=>{
-      const d = doc.data();
-
-      let div=document.createElement("div");
-      div.className="review";
-
-      div.innerHTML=`
-        <b>${d.name} (${d.class}-${d.section})</b><br>
-        Teacher: ${d.teacher}<br>
-        ⭐ ${d.rating}/5<br>
-        ${d.reason}<br>
-        <button onclick="deleteReview('${doc.id}')">Delete</button>
-      `;
-
-      box.appendChild(div);
+  db.ref("reviews").once("value",snap=>{
+    let data="";
+    snap.forEach(c=>{
+      let d=c.val();
+      data+=`${d.name} - ${d.teacher} - ${d.reason}\n`;
     });
-  });
-}
 
-// 🗑️ DELETE
-function deleteReview(id){
-  if(confirm("Delete this review?")){
-    db.collection("reviews").doc(id).delete();
-  }
+    alert(data);
+  });
 }
 </script>
 
