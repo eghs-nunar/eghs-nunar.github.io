@@ -1,278 +1,416 @@
 <!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Evergreen High School</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet"><style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{background:linear-gradient(135deg,#0f3d1f,#1f6b3a);color:white}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg1:#0f3d1f;
+  --bg2:#1f6b3a;
+  --glass:rgba(255,255,255,.12);
+  --glass-strong:rgba(255,255,255,.18);
+  --text:#ffffff;
+  --dark:#0b1d12;
+  --card:#ffffff;
+  --shadow:0 18px 45px rgba(0,0,0,.24);
+  --radius:26px;
+  --radius-lg:34px;
+  --accent:#ffd54f;
+  --accent-dark:#f4bf19;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Poppins",sans-serif}
+html{scroll-behavior:smooth}
+body{
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  color:var(--text);
+  overflow-x:hidden;
+  min-height:100vh;
+}
+body.urdu{direction:rtl}
+body.urdu nav, body.urdu header, body.urdu .hero, body.urdu .stats, body.urdu .people, body.urdu .list, body.urdu .testimonials, body.urdu .contact, body.urdu footer{direction:rtl}
+img{max-width:100%;display:block}
+a{text-decoration:none}.top-lang{ position:fixed; top:10px; right:10px; z-index:9999; border:none; outline:none; background:rgba(255,255,255,.18); color:#fff; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); padding:7px 12px; border-radius:999px; box-shadow:var(--shadow); font-weight:600; font-size:0.8rem; cursor:pointer; opacity:0.8; transition:all .2s ease; } .top-lang:hover{opacity:1;transform:scale(1.05)} .top-lang:hover{transform:translateY(-1px) scale(1.03);background:rgba(255,255,255,.28)}
 
-header{display:flex;align-items:center;justify-content:space-between;padding:15px 30px;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
-nav a{margin:0 10px;color:white;text-decoration:none;font-size:.9rem}
-nav a:hover{text-decoration:underline}
-header img{height:50px}
+header{ transition:transform .3s ease; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:16px 24px; background:var(--glass); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); position:sticky; top:0; z-index:100; border-bottom:1px solid rgba(255,255,255,.12); } .brand{display:flex;align-items:center;gap:12px;min-width:0} header img{height:54px;width:54px;object-fit:contain;filter:drop-shadow(0 6px 12px rgba(0,0,0,.2))} header h1{font-size:1.05rem;line-height:1.1;font-weight:800;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} nav{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end} nav a{ color:#fff; font-size:.92rem; padding:10px 14px; border-radius:999px; transition:background .2s ease, transform .2s ease; } nav a:hover{background:rgba(255,255,255,.14);transform:translateY(-1px)}
 
-.hero{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;padding:60px 40px}
-.hero-text{max-width:520px;animation:fadeUp 1s}
-.hero-text h2{font-size:3rem;font-weight:800}
-.btn{background:#ffd54f;color:black;padding:12px 28px;border-radius:30px;margin-top:20px;display:inline-block;cursor:pointer;transition:.3s}
-.btn:hover{transform:scale(1.08)}
+.hero{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:28px; padding:66px 24px 30px; max-width:1240px; margin:0 auto; } .hero-text{ max-width:620px; animation:fadeUp .9s ease both; } .hero-text h2{ font-size:clamp(2.3rem,5vw,4.4rem); font-weight:800; line-height:1.02; letter-spacing:-.04em; text-shadow:0 10px 30px rgba(0,0,0,.18); } .hero-text p{ margin-top:14px; opacity:.95; font-size:1.02rem; line-height:1.7; max-width:56ch; } .hero-panel{ flex:1 1 280px; display:flex; justify-content:center; align-items:center; min-height:260px; } .hero-art{ width:min(320px,86vw); aspect-ratio:1/1; border-radius:38px; background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(255,255,255,.06)); box-shadow:var(--shadow); border:1px solid rgba(255,255,255,.14); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; animation:float 4.5s ease-in-out infinite; } .hero-art::before, .hero-art::after{ content:""; position:absolute; border-radius:50%; background:rgba(255,255,255,.10); filter:blur(8px); } .hero-art::before{width:130px;height:130px;top:-30px;right:-30px} .hero-art::after{width:160px;height:160px;bottom:-60px;left:-40px} .hero-art img{width:72%;height:auto;object-fit:contain;position:relative;z-index:1;filter:drop-shadow(0 14px 20px rgba(0,0,0,.2))}
 
-.section{padding:60px 40px;text-align:center}
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; border:none; background:linear-gradient(180deg,#ffe777,var(--accent)); color:#1a1a1a; padding:13px 22px; margin-top:20px; border-radius:999px; cursor:pointer; font-weight:800; box-shadow:0 12px 26px rgba(0,0,0,.16); transition:transform .2s ease, box-shadow .2s ease, filter .2s ease; } .btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 16px 30px rgba(0,0,0,.22);filter:saturate(1.05)}
 
-/* STATS */
-.stats{display:flex;justify-content:center;gap:30px;flex-wrap:wrap}
-.stat{background:white;color:black;padding:20px;border-radius:15px;width:160px;animation:fadeUp 1s}
-.stat h2{font-size:2rem}
+.section{ padding:56px 24px; text-align:center; max-width:1240px; margin:0 auto; } .section h2{ font-size:clamp(1.6rem,3vw,2.4rem); font-weight:800; letter-spacing:-.03em; margin-bottom:20px; } .subtle{opacity:.86;max-width:62ch;margin:0 auto 12px;line-height:1.7}
 
-/* PEOPLE */
-.people{display:flex;gap:25px;justify-content:center;flex-wrap:wrap;margin-top:20px}
-.person{text-align:center}
-.person img{width:100px;height:100px;border-radius:50%;object-fit:cover;border:4px solid white;transition:.3s}
-.person:hover img{transform:scale(1.08)}
-.person p{margin-top:8px;font-size:.9rem}
+.stats{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:18px} .stat{ background:rgba(255,255,255,.95); color:#111; padding:22px 20px; border-radius:28px; width:min(180px, calc(100vw - 48px)); box-shadow:var(--shadow); border:1px solid rgba(255,255,255,.35); transform:translateY(0); transition:transform .2s ease, box-shadow .2s ease; } .stat:hover{transform:translateY(-4px);box-shadow:0 22px 40px rgba(0,0,0,.22)} .stat h2{font-size:2rem;line-height:1;margin-bottom:6px} .stat p{opacity:.75;font-weight:600}
 
-/* SERVICES */
-.list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-.card{background:white;color:black;padding:20px;border-radius:18px;cursor:pointer;transition:.3s}
-.card:hover{transform:translateY(-8px)}
-.card p{display:none;margin-top:10px;font-size:.9rem}
+.people{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:20px} .person{ text-align:center; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.14); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); padding:14px; border-radius:26px; width:170px; cursor:pointer; transition:transform .2s ease, background .2s ease, box-shadow .2s ease; box-shadow:0 10px 24px rgba(0,0,0,.14); } .person:hover{transform:translateY(-6px);background:rgba(255,255,255,.14);box-shadow:0 18px 30px rgba(0,0,0,.22)} .person img{ width:100px;height:100px;border-radius:50%;object-fit:cover; border:4px solid rgba(255,255,255,.96); margin:0 auto; transition:transform .25s ease; background:#fff; } .person:hover img{transform:scale(1.06)} .person p{margin-top:10px;font-size:.92rem;line-height:1.35;font-weight:600} .person small{opacity:.82;font-weight:500}
 
-/* GALLERY */
-.gallery-row{display:flex;gap:10px;overflow-x:auto;padding-bottom:10px}
-.gallery-row img{height:180px;border-radius:12px;cursor:pointer;transition:.3s}
-.gallery-row img:hover{transform:scale(1.05)}
+.list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:18px} .card{ background:rgba(255,255,255,.96); color:#111; padding:22px; border-radius:24px; cursor:pointer; box-shadow:var(--shadow); border:1px solid rgba(255,255,255,.35); transition:transform .2s ease, box-shadow .2s ease; text-align:left; } .card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,.22)} .card h3{font-size:1.05rem;margin-bottom:8px} .card p{display:none;margin-top:8px;font-size:.92rem;line-height:1.7;opacity:.82}
 
-/* LIGHTBOX */
-.lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:#000000ee;display:none;align-items:center;justify-content:center;z-index:20}
-.lightbox img{max-width:90%;max-height:80%;border-radius:15px;animation:zoom .3s}
-.close{position:absolute;top:20px;right:30px;font-size:30px;color:white;cursor:pointer}
+.gallery-row{ display:flex; gap:12px; overflow-x:auto; padding:8px 4px 12px; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; } .gallery-row::-webkit-scrollbar{height:8px} .gallery-row::-webkit-scrollbar-thumb{background:rgba(255,255,255,.25);border-radius:999px} .gallery-row img{ height:190px; min-width:260px; border-radius:24px; cursor:pointer; object-fit:cover; scroll-snap-align:center; box-shadow:var(--shadow); transition:transform .2s ease, filter .2s ease; } .gallery-row img:hover{transform:scale(1.02);filter:saturate(1.05)}
 
-/* TESTIMONIAL */
-.testimonials{display:flex;gap:20px;flex-wrap:wrap;justify-content:center}
-.testimonial{background:white;color:black;padding:20px;border-radius:15px;width:250px}
+.lightbox{ position:fixed;inset:0; background:rgba(5,10,8,.88); display:none; align-items:center; justify-content:center; z-index:1000; padding:20px; animation:fadeIn .18s ease; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); } .lightbox.open{display:flex} .lightbox img{ max-width:min(94vw,1100px); max-height:82vh; width:auto; height:auto; border-radius:24px; box-shadow:0 26px 60px rgba(0,0,0,.5); animation:zoom .22s ease; } .close{ position:absolute; top:20px; right:20px; width:46px;height:46px; border-radius:50%; display:flex;align-items:center;justify-content:center; font-size:28px; color:#fff; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.16); cursor:pointer; transition:transform .2s ease, background .2s ease; } .close:hover{transform:scale(1.06);background:rgba(255,255,255,.18)}
 
-/* CONTACT */
-.contact{background:#ffffff10;padding:40px;border-radius:20px}
+.testimonials{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:18px} .testimonial{ background:rgba(255,255,255,.96); color:#111; padding:22px; border-radius:24px; width:min(280px, calc(100vw - 48px)); box-shadow:var(--shadow); border:1px solid rgba(255,255,255,.35); line-height:1.75; }
 
-/* FORM */
-.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:#000000cc;display:none;justify-content:center;align-items:center}
-.form-box{background:white;color:black;padding:25px;border-radius:15px;width:90%;max-width:420px}
-.form-box input{width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #ccc}
-.submit-btn{background:#1f6b3a;color:white;padding:10px;border:none;width:100%;border-radius:10px;margin-top:10px;cursor:pointer}
-.success{display:none;text-align:center}
-.success iframe{width:100%;height:200px;border:0;margin-top:10px;border-radius:10px}
+.contact{ background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.14); padding:28px; border-radius:30px; box-shadow:var(--shadow); } .contact p{opacity:.92;line-height:1.7}
 
-footer{text-align:center;padding:20px;font-size:.8rem}
+.modal{ position:fixed;inset:0; background:rgba(5,10,8,.82); display:none; justify-content:center; align-items:center; z-index:1200; padding:20px; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); } .modal.open{display:flex} .form-box{ background:rgba(255,255,255,.96); color:#111; padding:24px; border-radius:30px; width:min(100%,430px); box-shadow:0 26px 60px rgba(0,0,0,.28); animation:zoom .2s ease; } .form-box h3{font-size:1.35rem;margin-bottom:8px;text-align:center} .form-box input{ width:100%; padding:13px 14px; margin:7px 0; border-radius:14px; border:1px solid #d8d8d8; outline:none; background:#fff; font-size:1rem; } .form-box input:focus{border-color:#8fd19e;box-shadow:0 0 0 4px rgba(47,165,82,.12)} .submit-btn{ background:linear-gradient(180deg,#2c7d40,#1f6b3a); color:#fff; padding:12px; border:none; width:100%; border-radius:16px; margin-top:10px; cursor:pointer; font-weight:700; box-shadow:0 10px 22px rgba(0,0,0,.18); transition:transform .2s ease, filter .2s ease; } .submit-btn:hover{transform:translateY(-1px);filter:saturate(1.04)} .success{display:none;text-align:center} .success p{line-height:1.7;margin-top:8px;color:#333} .success iframe{width:100%;height:210px;border:0;margin-top:12px;border-radius:18px;box-shadow:var(--shadow)}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1}}
-@keyframes zoom{from{transform:scale(.7)}to{transform:scale(1)}}
-</style></head>
-<body><header>
-  <img src="school.png">
+footer{ text-align:center; padding:24px 18px 32px; font-size:.86rem; opacity:.92; }
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s ease, transform .55s ease} .reveal.show{opacity:1;transform:translateY(0)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}} @keyframes zoom{from{transform:scale(.88);opacity:.6}to{transform:scale(1);opacity:1}} @keyframes fadeIn{from{opacity:0}to{opacity:1}} @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+@media (max-width: 720px){ header{padding:14px 16px;flex-wrap:wrap;justify-content:center} nav{justify-content:center} .hero{padding-top:42px} .hero-text{text-align:center} .hero-text p{margin-left:auto;margin-right:auto} .btn{margin-left:auto;margin-right:auto} .hero-panel{width:100%} .gallery-row img{min-width:240px;height:170px} } </style>
+
+</head>
+<body><button class="top-lang" id="langBtn" type="button" onclick="toggleLanguage()">English 🔀</button>
+
+<header>
+  <div class="brand">
+    <img src="school.png" alt="School logo">
+    <h1 id="siteTitle">Evergreen High School</h1>
+  </div>
   <nav>
-    <a href="#services">Services</a>
-    <a href="#gallery">Gallery</a>
-    <a href="#contact">Contact</a>
+    <a href="#services" id="navServices">Services</a>
+    <a href="#gallery" id="navGallery">Gallery</a>
+    <a href="#contact" id="navContact">Contact</a>
   </nav>
 </header><section class="hero">
-  <div class="hero-text">
-    <h2>Evergreen High School</h2>
-    <p>Empowering students with knowledge, values, and confidence.</p>
-    <div class="btn" onclick="openForm()">Apply Now</div><p style="margin-top:15px">
-  Nunar, Ganderbal - 191201
-</p>
-
+  <div class="hero-text reveal">
+    <h2 id="heroTitle">Evergreen High School</h2>
+    <p id="heroDesc">Empowering students with knowledge, values, and confidence.</p>
+    <button class="btn" id="applyBtn" type="button" onclick="openForm()">Apply Now</button>
+    <p id="addressText" style="margin-top:15px;line-height:1.75">Nunar, Ganderbal - 191201</p>
   </div>
-</section><section class="section">
-  <h2>Our Achievements</h2>
+  <div class="hero-panel reveal">
+    <div class="hero-art">
+      <img src="https://cdn-icons-png.flaticon.com/512/201/201818.png" alt="Student illustration">
+    </div>
+  </div>
+</section><section class="section reveal">
+  <h2 id="achievementsHeading">Our Achievements</h2>
   <div class="stats" id="stats">
-    <div class="stat"><h2>800+</h2><p>Students</p></div>
-    <div class="stat"><h2>70+</h2><p>Teachers</p></div>
-    <div class="stat"><h2>36+</h2><p>Years</p></div>
+    <div class="stat"><h2 data-count="800">800+</h2><p id="stat1Label">Students</p></div>
+    <div class="stat"><h2 data-count="70">70+</h2><p id="stat2Label">Teachers</p></div>
+    <div class="stat"><h2 data-count="36">36+</h2><p id="stat3Label">Years</p></div>
   </div>
-</section><section class="section">
-  <h2>Well-Known People From Our School</h2>
-  <div class="people" style="align-items:flex-start">
+</section><section class="section reveal">
+  <h2 id="wellKnownHeading">Well-Known People From Our School</h2>
+  <div class="people">
     <div class="person">
-      <img src="https://cdn-icons-png.flaticon.com/512/660/660611.png">
-      <p>Ajaz Ahmad Dar<br><small>Principal</small></p>
+      <img src="https://cdn-icons-png.flaticon.com/512/660/660611.png" alt="Principal">
+      <p><span id="principalName">Ajaz Ahmad Dar</span><br><small id="principalRole">Principal</small></p>
     </div>
     <div class="person">
-      <img src="https://cdn-icons-png.flaticon.com/512/660/660611.png">
-      <p>Majeed Ahmad Dar<br><small>Chairman</small></p>
+      <img src="https://cdn-icons-png.flaticon.com/512/660/660611.png" alt="Chairman">
+      <p><span id="chairmanName">Majeed Ahmad Dar</span><br><small id="chairmanRole">Chairman</small></p>
     </div>
   </div>
-</section><section class="section" id="services">
-  <h2>Our Services</h2>
+</section><section class="section reveal" id="services">
+  <h2 id="servicesHeading">Our Services</h2>
   <div class="list">
-    <div class="card" onclick="toggle(this)">Caring Staff<p>Personal care for every student.</p></div>
-    <div class="card" onclick="toggle(this)">Early Reading<p>Strong academic base.</p></div>
-    <div class="card" onclick="toggle(this)">Learning Fun<p>Interactive teaching.</p></div>
-    <div class="card" onclick="toggle(this)">Guidance<p>Supportive growth.</p></div>
+    <div class="card" onclick="toggle(this)"><h3 id="service1Title">Caring Staff</h3><p id="service1Desc">Personal care for every student.</p></div>
+    <div class="card" onclick="toggle(this)"><h3 id="service2Title">Early Reading</h3><p id="service2Desc">Strong academic base.</p></div>
+    <div class="card" onclick="toggle(this)"><h3 id="service3Title">Learning Fun</h3><p id="service3Desc">Interactive teaching.</p></div>
+    <div class="card" onclick="toggle(this)"><h3 id="service4Title">Guidance</h3><p id="service4Desc">Supportive growth.</p></div>
   </div>
-</section><section class="section" id="gallery">
-  <h2>School Showcase</h2>
+</section><section class="section reveal" id="gallery">
+  <h2 id="galleryHeading">School Showcase</h2>
   <div class="gallery-row">
-    <img src="1.jpg" onclick="openImg(this.src)">
-    <img src="2.jpg" onclick="openImg(this.src)">
-    <img src="3.jpg" onclick="openImg(this.src)">
-    <img src="4.jpg" onclick="openImg(this.src)">
-    <img src="5.jpg" onclick="openImg(this.src)">
-    <img src="6.jpg" onclick="openImg(this.src)">
-    <img src="7.jpg" onclick="openImg(this.src)">
-    <img src="8.jpg" onclick="openImg(this.src)">
+    <img src="1.jpg" alt="Showcase 1" onclick="openImg(this.src)">
+    <img src="2.jpg" alt="Showcase 2" onclick="openImg(this.src)">
+    <img src="3.jpg" alt="Showcase 3" onclick="openImg(this.src)">
+    <img src="4.jpg" alt="Showcase 4" onclick="openImg(this.src)">
+    <img src="5.jpg" alt="Showcase 5" onclick="openImg(this.src)">
+    <img src="6.jpg" alt="Showcase 6" onclick="openImg(this.src)">
+    <img src="7.jpg" alt="Showcase 7" onclick="openImg(this.src)">
+    <img src="8.jpg" alt="Showcase 8" onclick="openImg(this.src)">
   </div>
   <div style="margin-top:20px">
-    <a href="https://www.instagram.com/eghs_school_nunar?igsh=ZjVhZzN4MXNtOTU2" target="_blank" class="btn">Know More</a>
+    <a href="https://www.instagram.com/eghs_school_nunar?igsh=ZjVhZzN4MXNtOTU2" target="_blank" class="btn" id="knowMoreBtn">Know More</a>
   </div>
-</section><div class="lightbox" id="lightbox">
+</section><div class="lightbox" id="lightbox" onclick="closeImg(event)">
   <span class="close" onclick="closeImg()">&times;</span>
-  <img id="lightImg">
-</div></section><section class="section">
-  <h2>Our Toppers</h2>  <div class="people"><!-- 1st Rank (Gold) -->
-<div style="border:3px solid gold;padding:15px;border-radius:20px">
-  <h3>🥇 1st Rank (494 Marks)</h3>
-  <div style="display:flex;gap:15px;flex-wrap:wrap;justify-content:center">
-
-    <div class="person" onclick="showTopper('Aieda Manzoor','494 Marks')">
-      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135823.png">
-      <p>Aieda Manzoor</p>
-    </div>
-
-    <div class="person" onclick="showTopper('Aiman Farooq','494 Marks')">
-      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135823.png">
-      <p>Aiman Farooq</p>
-    </div>
-
-    <div class="person" onclick="showTopper('Saima Aslam','494 Marks')">
-      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135823.png">
-      <p>Saima Aslam</p>
-    </div>
-
-    <div class="person" onclick="showTopper('Mehak','494 Marks')">
-      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135823.png">
-      <p>Mehak</p>
-    </div>
-
+  <img id="lightImg" alt="Expanded showcase image">
+</div><section class="section reveal">
+  <h2 id="toppersHeading">Our Toppers</h2>
+  <div class="people">
+    <div style="border:3px solid gold;padding:15px;border-radius:24px;background:rgba(255,255,255,.08);backdrop-filter:blur(14px)">
+      <h3 id="rank1Heading">🥇 1st Rank (494 Marks)</h3>
+      <div style="display:flex;gap:15px;flex-wrap:wrap;justify-content:center;margin-top:14px">
+        <div class="person" onclick="showTopper('Aieda Manzoor','494 Marks')"><img src="https://cdn-icons-png.flaticon.com/512/3135/3135823.png" alt="Aieda Manzoor"><p>Aieda Manzoor</p></div>
+        <div class="person" onclick="showTopper('Aiman Farooq','494 Marks')"><img src="https://cdn-icons-png.flaticon.com/512/3135/3135823.png" alt="Aiman Farooq"><p>Aiman Farooq</p></div>
+        <div class="person" onclick="showTopper('Saima Aslam','494 Marks')"><img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Saima Aslam"><p>Saima Aslam</p></div>
+        <div class="person" onclick="showTopper('Mehak','494 Marks')"><img src="https://cdn-icons-png.flaticon.com/512/3135/3135823.png" alt="Mehak"><p>Mehak</p></div>
+      </div>
+    </div><div style="border:3px solid silver;padding:15px;border-radius:24px;background:rgba(255,255,255,.08);backdrop-filter:blur(14px);margin-top:20px">
+  <h3 id="rank2Heading">🥈 2nd Rank (492 Marks)</h3>
+  <div style="display:flex;gap:15px;flex-wrap:wrap;justify-content:center;margin-top:14px">
+    <div class="person" onclick="showTopper('Sahil Lone','492 Marks')"><img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Sahil Lone"><p>Sahil Lone</p></div>
+    <div class="person" onclick="showTopper('Seerat Jan','492 Marks')"><img src="https://cdn-icons-png.flaticon.com/512/3135/3135823.png" alt="Seerat Jan"><p>Seerat Jan</p></div>
   </div>
 </div>
 
-<!-- 2nd Rank (Silver) -->
-<div style="border:3px solid silver;padding:15px;border-radius:20px;margin-top:20px">
-  <h3>🥈 2nd Rank (492 Marks)</h3>
-  <div style="display:flex;gap:15px;flex-wrap:wrap;justify-content:center">
-
-    <div class="person" onclick="showTopper('Sahil Lone','492 Marks')">
-      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
-      <p>Sahil Lone</p>
-    </div>
-
-    <div class="person" onclick="showTopper('Seerat Jan','492 Marks')">
-      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135823.png">
-      <p>Seerat Jan</p>
-    </div>
-
-  </div>
-</div>
-
-<!-- 3rd Rank (Bronze) -->
-<div style="border:3px solid #cd7f32;padding:15px;border-radius:20px;margin-top:20px">
-  <h3>🥉 3rd Rank</h3>
-  <div style="display:flex;gap:15px;flex-wrap:wrap;justify-content:center">
-
-    <div class="person" onclick="showTopper('Fozia Altaf','490 Marks')">
-      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135823.png">
-      <p>Fozia Altaf (490)</p>
-    </div>
-
-    <div class="person" onclick="showTopper('Toiba','487 Marks')">
-      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135823.png">
-      <p>Toiba (487)</p>
-    </div>
-
+<div style="border:3px solid #cd7f32;padding:15px;border-radius:24px;background:rgba(255,255,255,.08);backdrop-filter:blur(14px);margin-top:20px">
+  <h3 id="rank3Heading">🥉 3rd Rank</h3>
+  <div style="display:flex;gap:15px;flex-wrap:wrap;justify-content:center;margin-top:14px">
+    <div class="person" onclick="showTopper('Fozia Altaf','490 Marks')"><img src="https://cdn-icons-png.flaticon.com/512/3135/3135823.png" alt="Fozia Altaf"><p>Fozia Altaf (490)</p></div>
+    <div class="person" onclick="showTopper('Toiba','487 Marks')"><img src="https://cdn-icons-png.flaticon.com/512/3135/3135823.png" alt="Toiba"><p>Toiba (487)</p></div>
   </div>
 </div>
 
   </div>
-</section><!-- TOPPER POPUP --><div class="lightbox" id="topperBox">
+</section><div class="lightbox" id="topperBox" onclick="closeTopper(event)">
   <span class="close" onclick="closeTopper()">&times;</span>
-  <div style="background:white;color:black;padding:25px;border-radius:15px;text-align:center;max-width:300px">
+  <div style="background:rgba(255,255,255,.97);color:#111;padding:25px;border-radius:24px;text-align:center;max-width:320px;box-shadow:var(--shadow)" onclick="event.stopPropagation()">
     <h3 id="topperName"></h3>
-    <p id="topperMarks"></p>
-    <p style="margin-top:10px">A proud achiever from our 10th batch, demonstrating excellence and dedication.</p>
+    <p id="topperMarks" style="margin-top:6px;font-weight:700"></p>
+    <p id="topperDesc" style="margin-top:10px;line-height:1.7;opacity:.82"></p>
   </div>
-</div><section class="section" id="contact">
+</div><section class="section reveal" id="contact">
   <div class="contact">
-    <h2>Contact Us</h2>
-    <p>Nunar, Ganderbal - 191201</p>
-    <a href="https://www.instagram.com/eghs_school_nunar?igsh=ZjVhZzN4MXNtOTU2" class="btn">Instagram</a>
+    <h2 id="contactHeading">Contact Us</h2>
+    <p id="contactText">Nunar, Ganderbal - 191201</p>
+    <a href="https://www.instagram.com/eghs_school_nunar?igsh=ZjVhZzN4MXNtOTU2" target="_blank" class="btn" id="instagramBtn">Instagram</a>
   </div>
 </section><div class="modal" id="formModal">
-  <div class="form-box">
-    <h3>Admission Form</h3>
-    <input placeholder="Student Name">
-    <input placeholder="Parent Name">
-    <input placeholder="Previous School (Optional)">
-    <input placeholder="Age" type="number">
-    <input placeholder="Class">
-    <input placeholder="Address">
-    <button class="submit-btn" onclick="submitForm()">Submit</button><div class="success" id="successMsg">
-  <h3>Thanks for requesting admission</h3>
-  <p>More info:</p>
-  <a href="https://www.instagram.com/eghs_school_nunar?igsh=ZjVhZzN4MXNtOTU2" target="_blank" class="btn">Instagram</a>
-  <p>Visit School</p>
-  <iframe src="https://maps.google.com/maps?q=nunar%20ganderbal&output=embed"></iframe>
+  <div class="form-box" onclick="event.stopPropagation()">
+    <h3 id="formHeading">Admission Form</h3>
+    <input id="studentInput" placeholder="Student Name">
+    <input id="parentInput" placeholder="Parent Name">
+    <input id="prevSchoolInput" placeholder="Previous School (Optional)">
+    <input id="ageInput" placeholder="Age" type="number">
+    <input id="classInput" placeholder="Class">
+    <input id="addressInput" placeholder="Address">
+    <button class="submit-btn" onclick="submitForm()" id="submitBtn">Submit</button><div class="success" id="successMsg">
+  <h3 id="thanksTitle">Thanks for requesting admission</h3>
+  <p id="moreInfoText">You can get more information on</p>
+  <a href="https://www.instagram.com/eghs_school_nunar?igsh=ZjVhZzN4MXNtOTU2" target="_blank" class="btn" id="successInstagramBtn">Instagram</a>
+  <p id="visitSchoolText" style="margin-top:10px">Visit School</p>
+  <iframe src="https://maps.google.com/maps?q=nunar%20ganderbal&output=embed" title="School location map"></iframe>
 </div>
 
   </div>
 </div><footer>
   <p>© Evergreen High School</p>
-  <p>Developed by @_____Hazik</p>
+  <p id="footerDev">Developed by @_____Hazik</p>
 </footer><script>
-function openForm(){document.getElementById('formModal').style.display='flex'}
-function submitForm(){
- document.querySelectorAll('.form-box input').forEach(i=>i.style.display='none');
- document.querySelector('.submit-btn').style.display='none';
- document.getElementById('successMsg').style.display='block';
-}
-function toggle(el){let p=el.querySelector('p');p.style.display=p.style.display==='block'?'none':'block'}
-function openImg(src){document.getElementById('lightbox').style.display='flex';document.getElementById('lightImg').src=src}
-function closeImg(){document.getElementById('lightbox').style.display='none'}
-window.onclick=function(e){if(e.target.id==='formModal'){e.target.style.display='none'}}
-function showTopper(name,marks){
- document.getElementById('topperBox').style.display='flex';
- document.getElementById('topperName').innerText=name;
- document.getElementById('topperMarks').innerText=marks;
-}
-function closeTopper(){document.getElementById('topperBox').style.display='none'}
-// animated counters
-let counted=false;
-window.addEventListener('scroll',()=>{
- const stats=document.getElementById('stats');
- if(!counted && stats.getBoundingClientRect().top<window.innerHeight){
-  counted=true;
-  document.querySelectorAll('.stat h2').forEach(el=>{
-    let target=parseInt(el.innerText);
-    let count=0;
-    let step=target/50;
-    let interval=setInterval(()=>{
-      count+=step;
-      if(count>=target){el.innerText=target+'+';clearInterval(interval)}
-      else el.innerText=Math.floor(count)+'+';
-    },20);
-  });
- }
-});
+const translations = {
+  en: {
+    langBtn: 'English 🔀',
+    siteTitle: 'Evergreen High School',
+    navServices: 'Services',
+    navGallery: 'Gallery',
+    navContact: 'Contact',
+    heroTitle: 'Evergreen High School',
+    heroDesc: 'Empowering students with knowledge, values, and confidence.',
+    applyBtn: 'Apply Now',
+    addressText: 'Nunar, Ganderbal - 191201',
+    achievementsHeading: 'Our Achievements',
+    stat1Label: 'Students',
+    stat2Label: 'Teachers',
+    stat3Label: 'Years',
+    wellKnownHeading: 'Well-Known People From Our School',
+    principalRole: 'Principal',
+    chairmanRole: 'Chairman',
+    servicesHeading: 'Our Services',
+    service1Title: 'Caring Staff',
+    service1Desc: 'Personal care for every student.',
+    service2Title: 'Early Reading',
+    service2Desc: 'Strong academic base.',
+    service3Title: 'Learning Fun',
+    service3Desc: 'Interactive teaching.',
+    service4Title: 'Guidance',
+    service4Desc: 'Supportive growth.',
+    galleryHeading: 'School Showcase',
+    knowMoreBtn: 'Know More',
+    toppersHeading: 'Our Toppers',
+    rank1Heading: '🥇 1st Rank (494 Marks)',
+    rank2Heading: '🥈 2nd Rank (492 Marks)',
+    rank3Heading: '🥉 3rd Rank',
+    contactHeading: 'Contact Us',
+    contactText: 'Nunar, Ganderbal - 191201',
+    instagramBtn: 'Instagram',
+    formHeading: 'Admission Form',
+    submitBtn: 'Submit',
+    thanksTitle: 'Thanks for requesting admission',
+    moreInfoText: 'You can get more information on',
+    successInstagramBtn: 'Instagram',
+    visitSchoolText: 'Visit School',
+    footerDev: 'Developed by @_____Hazik'
+  },
+  ur: {
+    langBtn: 'اردو 🔀',
+    siteTitle: 'ایورگرین ہائی اسکول',
+    navServices: 'خدمات',
+    navGallery: 'گیلری',
+    navContact: 'رابطہ',
+    heroTitle: 'ایورگرین ہائی اسکول',
+    heroDesc: 'علم، اقدار اور اعتماد کے ساتھ طلبہ کو آگے بڑھانا۔',
+    applyBtn: 'داخلہ لیں',
+    addressText: 'نُنر، گاندربل - 191201',
+    achievementsHeading: 'ہماری کامیابیاں',
+    stat1Label: 'طلبہ',
+    stat2Label: 'اساتذہ',
+    stat3Label: 'سال',
+    wellKnownHeading: 'ہماری اسکول کی معروف شخصیات',
+    principalRole: 'پرنسپل',
+    chairmanRole: 'چیئرمین',
+    servicesHeading: 'ہماری خدمات',
+    service1Title: 'شفقت کرنے والا عملہ',
+    service1Desc: 'ہر طالب علم کی ذاتی دیکھ بھال۔',
+    service2Title: 'ابتدائی مطالعہ',
+    service2Desc: 'مضبوط تعلیمی بنیاد۔',
+    service3Title: 'تفریحی تعلیم',
+    service3Desc: 'انٹرایکٹو تدریس۔',
+    service4Title: 'رہنمائی',
+    service4Desc: 'حمایتی نشوونما۔',
+    galleryHeading: 'اسکول کی جھلکیاں',
+    knowMoreBtn: 'مزید جانیں',
+    toppersHeading: 'ہمارے ٹاپرز',
+    rank1Heading: '🥇 پہلی پوزیشن (494 نمبر)',
+    rank2Heading: '🥈 دوسری پوزیشن (492 نمبر)',
+    rank3Heading: '🥉 تیسری پوزیشن',
+    contactHeading: 'ہم سے رابطہ کریں',
+    contactText: 'نُنر، گاندربل - 191201',
+    instagramBtn: 'انسٹاگرام',
+    formHeading: 'داخلہ فارم',
+    submitBtn: 'جمع کریں',
+    thanksTitle: 'داخلے کی درخواست دینے کے لیے شکریہ',
+    moreInfoText: 'مزید معلومات کے لیے',
+    successInstagramBtn: 'انسٹاگرام',
+    visitSchoolText: 'اسکول وزٹ کریں',
+    footerDev: 'ڈیولپر: @_____Hazik'
+  }
+};
 
-// better topper descriptions
-function showTopper(name,marks){
- document.getElementById('topperBox').style.display='flex';
- document.getElementById('topperName').innerText=name;
- document.getElementById('topperMarks').innerText=marks;
- document.querySelector('#topperBox p:last-child').innerText=
- name+" is a top-performing student from our 10th batch, known for dedication, consistency, and academic excellence.";
+const topperDescriptions = {
+  en: 'A proud achiever from our 10th batch, known for dedication, consistency, and academic excellence.',
+  ur: 'یہ ہمارے دسویں جماعت کے بیچ کی ایک شاندار طالبہ/طالبِ علم ہے، جو محنت، مستقل مزاجی اور تعلیمی کارکردگی کے لیے مشہور ہے۔'
+};
+
+let currentLang = 'en';
+
+function applyLanguage(lang){
+  const t = translations[lang];
+  document.documentElement.lang = lang === 'ur' ? 'ur' : 'en';
+  document.body.classList.toggle('urdu', lang === 'ur');
+
+  Object.entries(t).forEach(([key, value]) => {
+    const el = document.getElementById(key);
+    if (!el) return;
+    if (el.tagName === 'INPUT') el.placeholder = value;
+    else el.textContent = value;
+  });
+
+  // Inputs
+  document.getElementById('studentInput').placeholder = lang === 'ur' ? 'طالب علم کا نام' : 'Student Name';
+  document.getElementById('parentInput').placeholder = lang === 'ur' ? 'والد/والدہ کا نام' : 'Parent Name';
+  document.getElementById('prevSchoolInput').placeholder = lang === 'ur' ? 'پچھلا اسکول (اختیاری)' : 'Previous School (Optional)';
+  document.getElementById('ageInput').placeholder = lang === 'ur' ? 'عمر' : 'Age';
+  document.getElementById('classInput').placeholder = lang === 'ur' ? 'جماعت' : 'Class';
+  document.getElementById('addressInput').placeholder = lang === 'ur' ? 'پتہ' : 'Address';
+
+  // service card texts and toppers remain readable by updating headings only
+  document.getElementById('langBtn').textContent = t.langBtn;
+
+  currentLang = lang;
 }
-function closeTopper(){document.getElementById('topperBox').style.display='none'}
+
+function toggleLanguage(){
+  applyLanguage(currentLang === 'en' ? 'ur' : 'en');
+}
+
+function openForm(){
+  document.getElementById('formModal').classList.add('open');
+}
+function submitForm(){
+  document.querySelectorAll('.form-box input').forEach(i => i.style.display = 'none');
+  document.getElementById('submitBtn').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+}
+function toggle(el){
+  const p = el.querySelector('p');
+  p.style.display = p.style.display === 'block' ? 'none' : 'block';
+}
+function openImg(src){
+  document.getElementById('lightImg').src = src;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeImg(e){
+  if (e && e.target && e.target.id !== 'lightbox' && e.target.className !== 'close') return;
+  document.getElementById('lightbox').classList.remove('open');
+}
+function showTopper(name, marks){
+  document.getElementById('topperName').innerText = name;
+  document.getElementById('topperMarks').innerText = marks;
+  document.getElementById('topperDesc').innerText = topperDescriptions[currentLang];
+  document.getElementById('topperBox').classList.add('open');
+}
+function closeTopper(e){
+  if (e && e.target && e.target.id !== 'topperBox' && e.target.className !== 'close') return;
+  document.getElementById('topperBox').classList.remove('open');
+}
+
+// close modal/lightbox when clicking outside
+window.addEventListener('click', (e) => {
+  if (e.target.id === 'formModal') document.getElementById('formModal').classList.remove('open');
+});
+document.getElementById('lightbox').addEventListener('click', closeImg);
+document.getElementById('topperBox').addEventListener('click', closeTopper);
+
+// scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('show');
+  });
+}, {threshold: 0.12});
+revealEls.forEach(el => obs.observe(el));
+
+// animated counters
+let counted = false;
+function animateCount(el, target){
+  let current = 0;
+  const duration = 1200;
+  const steps = 60;
+  const increment = target / steps;
+  const interval = duration / steps;
+  const timer = setInterval(() => {
+    current += increment;
+    if (current >= target) {
+      el.textContent = target + '+';
+      clearInterval(timer);
+    } else {
+      el.textContent = Math.floor(current) + '+';
+    }
+  }, interval);
+}
+const statsSection = document.getElementById('stats');
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !counted) {
+      counted = true;
+      document.querySelectorAll('[data-count]').forEach(el => animateCount(el, parseInt(el.dataset.count, 10)));
+    }
+  });
+}, {threshold: 0.35});
+statObserver.observe(statsSection);
+
+applyLanguage('en');
+// hide header on scroll
+let lastScroll=0;
+const header=document.querySelector('header');
+window.addEventListener('scroll',()=>{
+ let current=window.pageYOffset;
+ if(current>lastScroll && current>80){
+   header.style.transform='translateY(-100%)';
+ }else{
+   header.style.transform='translateY(0)';
+ }
+ lastScroll=current;
+});
 </script></body>
 </html>
